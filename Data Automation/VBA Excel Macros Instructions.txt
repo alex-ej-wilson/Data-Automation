@@ -1,0 +1,61 @@
+VBA Code for Excel Macros:
+==================================================================================================
+Will need to Enable VBA Macros if not already enabled:
+	
+	File > Options > Trust Center > Trust Center Settings > Macro Settings > Enable VBA Macros
+
+Then open VBA Editor and paste in the following code:
+---------------------------------------------------------------------------------------------------
+Schedule:
+
+"
+Sub RunCode()
+    Dim objShell As Object
+    Dim PythonExe As String
+    Dim PythonScript As String
+    Set objShell = CreateObject("Wscript.shell")
+    PythonExe = """C:\Users\AWilson\AppData\Local\Microsoft\WindowsApps\python.exe"""
+    PythonScript = """C:\Users\AWilson\Projects\Python\Schedule_to_folder.py"""
+    objShell.Run PythonExe & " " & PythonScript, 0, False
+End Sub
+"
+
+---------------------------------------------------------------------------------------------------
+Example Control Document:
+
+"
+Sub RunCode()
+    Dim objShell As Object
+    Dim PythonExe As String
+    Dim PythonScript As String
+    
+    Dim PythonArgs
+    
+    Set objShell = CreateObject("Wscript.shell")
+    
+    PythonExe = """C:\Users\AWilson\AppData\Local\Microsoft\WindowsApps\python.exe"""
+    PythonScript = """C:\Users\AWilson\Projects\Python\ControlDoc_to_Invoice.py"""
+    'objShell.Run PythonExe & " " & PythonScript, 0, False
+    PythonArgs = """" & ThisWorkbook.FullName & """"
+    
+    objShell.Run PythonExe & " " & PythonScript & " " & PythonArgs & " " & PythonArgs, 0, False
+    
+End Sub
+"
+
+---------------------------------------------------------------------------------------------------
+Item Database:
+
+"
+Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)
+    Dim objShell As Object
+    Dim PythonExe As String
+    Dim PythonScript As String
+    Set objShell = CreateObject("Wscript.shell")
+    PythonExe = """C:\Users\AWilson\AppData\Local\Microsoft\WindowsApps\python.exe"""
+    PythonScript = """C:\Users\AWilson\Projects\Python\ItemDB_adder.py"""
+    objShell.Run PythonExe & " " & PythonScript, 0, False
+End Sub
+"
+
+---------------------------------------------------------------------------------------------------
